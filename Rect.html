@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rectifier Data Entry</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            padding-top: 20px; /* Tambahkan padding di bagian atas */
+            padding-bottom: 20px; /* Tambahkan padding di bagian bawah */
+        }
+        .container { 
+            max-width: 100%; /* Mengatur lebar maksimum kontainer */
+            padding-left: 15px; /* Tambahkan padding kiri */
+            padding-right: 15px; /* Tambahkan padding kanan */
+            margin-right: auto; /* Atur margin kanan menjadi otomatis */
+            margin-left: auto; /* Atur margin kiri menjadi otomatis */
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+        }
+        th, td { 
+            text-align: center; /* Menyeting tulisan pada kolom ke tengah */
+            padding: 8px; 
+            border-bottom: 1px solid #00c70d; 
+        }
+        th { 
+            background-color: #00c70d; /* Menambahkan warna pada latar belakang header */
+            color: white; /* Memberikan warna tulisan putih pada header */
+        }
+        .submit-btn { 
+            margin-top: 20px; 
+            padding: 10px 20px; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center">Rectifier Data Entry</h2>
+    <h4 class="text-center">Summary Checklist TTC Gayungan - Rectifier</h4> <!-- Tambahkan judul header 4 di sini -->
+    <h4 class="text-center" id="headerData">Date: <span id="currentDate"></span> | Time: <span id="currentTime"></span></h4> <!-- Tambahkan tanggal dan waktu di sini -->
+    <div class="table-responsive"> <!-- Tambahkan kelas table-responsive -->
+        <table class="table table-bordered" id="data-table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Device</th>
+                    <th>Tegangan</th>
+                    <th>Load</th>
+                    <th>Persentase</th>
+               
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+    <button id="save-data" class="btn btn-info btn-block">Save Data</button> <!-- Tambahkan kelas btn-block -->
+    <button id="download-txt" class="btn btn-secondary btn-block">Download as Text</button> <!-- Tambahkan kelas btn-block -->
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var savedData = []; // Variabel untuk menyimpan data tabel
+
+        // Fungsi untuk menambahkan baris ke tabel
+        function addRow(no, device) {
+            return `
+                <tr>
+                    <td>${no}</td>
+                    <td>${device}</td>
+                    <td><input type="number" class="form-control tegangan"></td>
+                    <td><input type="number" class="form-control load"></td>
+                    <td><input type="number" class="form-control persentase"></td>
+                </tr>
+            `;
+        }
+
+       // Menambahkan baris ke tabel berdasarkan data perangkat
+       const devices = [ "RECT 11 Lt. 1","RECT 12 Lt. 1","RECT 13 Lt. 1","RECT 14 Lt. 1","RECT 15 Lt. 1","RECT 16 Lt. 1","RECT 17 Lt. 1","RECT 18 Lt. 1","RECT 19 Lt. 1","RECT 20 Lt. 1","RECT 21 Lt. 1","RECT 22 Lt. 1","RECT 23 Lt. 1","RECT 24 Lt. 1"
+       ,"RECT 1 Lt. 2","RECT 2 Lt. 2","RECT 3 Lt. 2","RECT 4 Lt. 2","RECT 5 Lt. 2","RECT 6 Lt. 2","RECT 7a Lt. 2","RECT 7b Lt. 2","RECT 8 Lt. 2","RECT 9 Lt. 2"
+       ]; // Tambahkan lebih banyak sesuai kebutuhan
+       devices.forEach((device, index) => {
+           $('#data-table tbody').append(addRow(index + 1, device));
+       });
+
+        // Mengumpulkan data dari tabel dan menyimpannya ke variabel savedData
+        function collectTableData() {
+            savedData = []; // Reset savedData
+            $("#data-table tbody tr").each(function() {
+                var row = $(this);
+                var rowData = {
+                    no: row.find("td:nth-child(1)").text(),
+                    device: row.find("td:nth-child(2)").text(),
+                    tegangan: row.find(".tegangan").val(),
+                    load: row.find(".load").val(),
+                    persentase: row.find(".persentase").val()
+                };
+                savedData.push(rowData);
+            });
+        }
+
+        // Fungsi untuk mendapatkan tanggal dan waktu saat ini
+        function getCurrentDateTime() {
+            var currentDate = new Date().toLocaleDateString('en-US');
+            var currentTime = new Date().toLocaleTimeString('en-US');
+            return { date: currentDate, time: currentTime };
+        }
+
+        // Memperbarui tampilan tanggal dan waktu saat ini
+        function updateCurrentDateTime() {
+            var dateTime = getCurrentDateTime();
+            $('#currentDate').text(dateTime.date);
+            $('#currentTime').text(dateTime.time);
+        }
+
+        // Memperbarui tanggal dan waktu saat halaman dimuat
+        updateCurrentDateTime();
+
+        // Memperbarui tanggal dan waktu setiap menit
+        setInterval(updateCurrentDateTime, 60000);
+
+        // Tombol "Save Data" diklik
+        $('#save-data').click(function() {
+            collectTableData(); // Mengumpulkan dan menyimpan data
+            console.log("Data saved", savedData); // Opsi untuk debugging
+        });
+
+        $('#download-txt').click(function() {
+            downloadText(savedData, 'pac_data.txt');
+        });
+        
+        function downloadText(data, filename) {
+            // Mendapatkan tanggal dan waktu saat ini
+            var dateTime = getCurrentDateTime();
+            // Menyusun data dalam format teks
+            let textContent = `Summary Checklist TTC Gayungan\nDate: ${dateTime.date}\nTime: ${dateTime.time}\n\nNo/ PAC Device/ Tegangan/ Load/ Persentase\n`;
+            data.forEach(function(row) {
+                textContent += `${row.no}/ ${row.device}/ ${row.tegangan}/ ${row.load}/ ${row.persentase}\n`;
+            });
+
+            // Membuat Blob dari string teks
+            var blob = new Blob([textContent], {type: "text/plain;charset=utf-8"});
+        
+            // Membuat link untuk pengunduhan
+            var link = document.createElement("a");
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", filename);
+            document.body.appendChild(link);
+            link.click();
+        
+            // Membersihkan untuk menghindari kebocoran memori
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+    });
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

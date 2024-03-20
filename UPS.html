@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPS Data Entry</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .container { 
+            max-width: 100%;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+        }
+        th, td { 
+            text-align: center; 
+            padding: 8px; 
+            border-bottom: 1px solid #00c70d; 
+        }
+        th { 
+            background-color: #00c70d; 
+            color: white; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center">UPS Data Entry</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>UPS Name</th>
+                    <th>Voltage (V)</th>
+                    <th>Current (A)</th>
+                    <th>Status</th>
+                    <th>Kapasitas</th>
+                    <th>Load</th>
+                    <th>Persentase</th>
+                    <th>Backup Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>UPS CCTV: Lt.1</td>
+                    <td><input type="text" class="form-control" id="voltage1"></td>
+                    <td><input type="text" class="form-control" id="current1"></td>
+                    <td><input type="text" class="form-control" id="status1"></td>
+                    <td><input type="text" class="form-control" id="kapasitas1"></td>
+                    <td><input type="text" class="form-control" id="load1"></td>
+                    <td><input type="text" class="form-control" id="persentase1"></td>
+                    <td><input type="text" class="form-control" id="backupTime1"></td>
+                </tr>
+                <tr>
+                    <td>UPS B (Lt.1): A4</td>
+                    <td><input type="text" class="form-control" id="voltage2"></td>
+                    <td><input type="text" class="form-control" id="current2"></td>
+                    <td><input type="text" class="form-control" id="status2"></td>
+                    <td><input type="text" class="form-control" id="kapasitas2"></td>
+                    <td><input type="text" class="form-control" id="load2"></td>
+                    <td><input type="text" class="form-control" id="persentase2"></td>
+                    <td><input type="text" class="form-control" id="backupTime2"></td>
+                </tr>
+                <!-- Add more rows for other UPS -->
+            </tbody>
+        </table>
+    </div>
+    <button id="save-data" class="btn btn-info btn-block">Save Data</button>
+    <button id="download-txt" class="btn btn-secondary btn-block">Download as Text</button>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#save-data').click(function() {
+            var data = {
+                "UPS CCTV: Lt.1": {
+                    "Voltage": $('#voltage1').val(),
+                    "Current": $('#current1').val(),
+                    "Status": $('#status1').val(),
+                    "Kapasitas": $('#kapasitas1').val(),
+                    "Load": $('#load1').val(),
+                    "Persentase": $('#persentase1').val(),
+                    "Backup Time": $('#backupTime1').val()
+                },
+                "UPS B (Lt.1): A4": {
+                    "Voltage": $('#voltage2').val(),
+                    "Current": $('#current2').val(),
+                    "Status": $('#status2').val(),
+                    "Kapasitas": $('#kapasitas2').val(),
+                    "Load": $('#load2').val(),
+                    "Persentase": $('#persentase2').val(),
+                    "Backup Time": $('#backupTime2').val()
+                },
+                // Add more UPS data here
+            };
+            console.log(data); // Print data to console (you can modify this to send data to server)
+        });
+
+        $('#download-txt').click(function() {
+            var data = {
+                "UPS CCTV: Lt.1": {
+                    "Voltage": $('#voltage1').val(),
+                    "Current": $('#current1').val(),
+                    "Status": $('#status1').val(),
+                    "Kapasitas": $('#kapasitas1').val(),
+                    "Load": $('#load1').val(),
+                    "Persentase": $('#persentase1').val(),
+                    "Backup Time": $('#backupTime1').val()
+                },
+                "UPS B (Lt.1): A4": {
+                    "Voltage": $('#voltage2').val(),
+                    "Current": $('#current2').val(),
+                    "Status": $('#status2').val(),
+                    "Kapasitas": $('#kapasitas2').val(),
+                    "Load": $('#load2').val(),
+                    "Persentase": $('#persentase2').val(),
+                    "Backup Time": $('#backupTime2').val()
+                },
+                // Add more UPS data here
+            };
+
+            downloadText(data, 'ups_data.txt');
+        });
+
+        function downloadText(data, filename) {
+            let textContent = "";
+            Object.keys(data).forEach(function(upsName) {
+                textContent += upsName + "\n";
+                Object.keys(data[upsName]).forEach(function(property) {
+                    textContent += property + ": " + data[upsName][property] + "\n";
+                });
+                textContent += "\n";
+            });
+
+            var blob = new Blob([textContent], {type: "text/plain;charset=utf-8"});
+            var link = document.createElement("a");
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+    });
+</script>
+
+</body>
+</html>
