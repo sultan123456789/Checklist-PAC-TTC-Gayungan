@@ -1,95 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAC Data Entry</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { 
-            font-family: Arial, sans-serif;
-            padding-top: 20px; /* Tambahkan padding di bagian atas */
-            padding-bottom: 20px; /* Tambahkan padding di bagian bawah */
-        }
-        .container { 
-            max-width: 100%; /* Mengatur lebar maksimum kontainer */
-            padding-left: 15px; /* Tambahkan padding kiri */
-            padding-right: 15px; /* Tambahkan padding kanan */
-            margin-right: auto; /* Atur margin kanan menjadi otomatis */
-            margin-left: auto; /* Atur margin kiri menjadi otomatis */
-        }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-        }
-        th, td { 
-            text-align: center; /* Menyeting tulisan pada kolom ke tengah */
-            padding: 8px; 
-            border-bottom: 1px solid #00c70d; 
-        }
-        th { 
-            background-color: #00c70d; /* Menambahkan warna pada latar belakang header */
-            color: white; /* Memberikan warna tulisan putih pada header */
-        }
-        .submit-btn { 
-            margin-top: 20px; 
-            padding: 10px 20px; 
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h2 class="text-center">PLN, PDAM, PAC Data Entry</h2>
-    <h4 class="text-center">Summary Checklist TTC Gayungan - PAC</h4> <!-- Tambahkan judul header 4 di sini -->
-    <h4 class="text-center" id="headerData">Date: <span id="currentDate"></span> | Time: <span id="currentTime"></span></h4> <!-- Tambahkan tanggal dan waktu di sini -->
-    <div class="table-responsive"> <!-- Tambahkan kelas table-responsive -->
-        <table class="table table-bordered" id="data-table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>PAC Device</th>
-                    <th>Temp (C)</th>
-                    <th>Hum (%)</th>
-                    <th>Comp. (1/2/0)</th>
-                    <th>Status (On/Off/ST)</th>
-               
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Data rows will be dynamically added here -->
-            </tbody>
-        </table>
-    </div>
-   </div>
-<div class="container">
-    <div class="table-responsive"> <!-- Tambahkan kelas table-responsive -->
-        <table class="table table-bordered" id="data-table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>PAC Device</th>
-                    <th>Temp (C)</th>
-                    <th>Hum (%)</th>
-                    <th>Comp. (1/2/0)</th>
-                    <th>Status (On/Off/ST)</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Data rows will be dynamically added here -->
-            </tbody>
-        </table>
-    </div>
-    <button id="save-data" class="btn btn-info btn-block">Save Data</button> <!-- Tambahkan kelas btn-block -->
-    <button id="download-txt" class="btn btn-secondary btn-block">Download as Text</button> <!-- Tambahkan kelas btn-block -->
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <script>
     $(document).ready(function() {
-        var savedDataku = []; // Variabel untuk menyimpan data tabel
+        var savedData = []; // Variabel untuk menyimpan data tabel
 
         // Fungsi untuk menambahkan baris ke tabel
         function addRow(no, device) {
@@ -118,10 +29,10 @@
         } else {
             // Menambahkan baris ke tabel berdasarkan data perangkat jika tidak ada data yang tersimpan
             const devices = [ "PAC A2 (1.1)", "PAC B1 (2.1)", "PAC B1 (2.2)","PAC B3 (2.4)","PAC B3 (2.5)","PAC B3 (2.6)","PAC C1 (3.1)","PAC C1 (3.2)","PAC C1 (3.4)","PAC C1 (3.5)","PAC C1 (3.6)","PAC C1 (3.8)","PAC C1 (3.9)","PAC C1 (3.10)","PAC C1 (3.11)","PAC C2 (3.12)","PAC C2 (3.13)","PAC C2 (3.14)","PAC D1 (4.1)","PAC D1 (4.2)","PAC D1 (4.4)","PAC D1 (4.5)","PAC D1 (4.6)","PAC D3 (4.8)","PAC D3 (4.9)","PAC D5 (4.11)","PAC D5 (4.12)","PAC E1 (5.3)","PAC E1 (5.4)","PAC E1 (5.5)","PAC E2 (5.1)","PAC E2 (5.2)","PAC E3 (5.7)","PAC E3 (5.8)","PAC F2 (6.5)","PAC F2 (6.6)","PAC F3 (6.8)","PAC F3 (6.9)","PAC F4 (6.10)","PAC F4 (6.11)","PAC F4 (6.12)","PAC F4 (6.13)","PAC F5 (6.14)","PAC F5 (6.15)","PAC F5 (6.16)","PAC F5 (6.17)","PAC F5 (6.18)", 
-       "PAC Cont. E5 (5.1.54)", "PAC Cont. E5 (5.1.55)", "PAC Cont. E5 (5.1.56)", "PAC Cont. E5 (5.1.57)", "PAC Cont. E5 (5.1.58)", "PAC Cont. F1 (6.1.46)", "PAC Cont. F1 (6.1.47)", "PAC Cont. F1 (6.1.48)", "PAC Cont. F1 (6.1.49)", "PAC Cont. F1 (6.2.50)", "PAC Cont. F1 (6.2.51)", "PAC Cont. F1 (6.2.52)", "PAC Cont. F1 (6.2.53)"
-       , "CONTAIMENT E5", "CONTAIMENT 1 F1", "CONTAIMENT 2 F1","RUANGAN A2", "RUANGAN A3", "RUANGAN A4", "RUANGAN B1", "RUANGAN B2", "RUANGAN B3", "RUANGAN C1", "RUANGAN C2", "RUANGAN D1", "RUANGAN D2", "RUANGAN D3", "RUANGAN D4", "RUANGAN D5", "RUANGAN E1", "RUANGAN E2", "RUANGAN E3", "RUANGAN E4", "RUANGAN E5", "RUANGAN F1",  "RUANGAN F2", "RUANGAN F3", "RUANGAN F4", "RUANGAN F5", "RUANGAN F6"
-
-       ];
+            "PAC Cont. E5 (5.1.54)", "PAC Cont. E5 (5.1.55)", "PAC Cont. E5 (5.1.56)", "PAC Cont. E5 (5.1.57)", "PAC Cont. E5 (5.1.58)", "PAC Cont. F1 (6.1.46)", "PAC Cont. F1 (6.1.47)", "PAC Cont. F1 (6.1.48)", "PAC Cont. F1 (6.1.49)", "PAC Cont. F1 (6.2.50)", "PAC Cont. F1 (6.2.51)", "PAC Cont. F1 (6.2.52)", "PAC Cont. F1 (6.2.53)"
+            , "CONTAIMENT E5", "CONTAIMENT 1 F1", "CONTAIMENT 2 F1","RUANGAN A2", "RUANGAN A3", "RUANGAN A4", "RUANGAN B1", "RUANGAN B2", "RUANGAN B3", "RUANGAN C1", "RUANGAN C2", "RUANGAN D1", "RUANGAN D2", "RUANGAN D3", "RUANGAN D4", "RUANGAN D5", "RUANGAN E1", "RUANGAN E2", "RUANGAN E3", "RUANGAN E4", "RUANGAN E5", "RUANGAN F1",  "RUANGAN F2", "RUANGAN F3", "RUANGAN F4", "RUANGAN F5", "RUANGAN F6"
+     
+            ];
             devices.forEach((device, index) => {
                 $('#data-table tbody').append(addRow(index + 1, device));
             });
@@ -143,7 +54,7 @@
                 savedData.push(rowData);
             });
             // Menyimpan data ke local storage
-            localStorage.setItem('savedDataku', JSON.stringify(savedDataku));
+            localStorage.setItem('savedData', JSON.stringify(savedData));
         }
 
         // Fungsi untuk mendapatkan tanggal dan waktu saat ini
@@ -175,6 +86,12 @@
         $('#download-txt').click(function() {
             downloadText(savedData, 'pac_data.txt');
         });
+
+          $('#clear-data').click(function() {
+            $('#data-table tbody').empty(); // Menghapus semua baris dari tabel
+            savedData = []; // Mengosongkan savedData
+            localStorage.removeItem('savedData'); // Menghapus data dari local storage
+        });
         
         function downloadText(data, filename) {
             // Mendapatkan tanggal dan waktu saat ini
@@ -202,16 +119,6 @@
         }
 
         // Autosave setiap 5 menit
-        setInterval(collectTableData, 300000);
+        setInterval(collectTableData, 10);
     });
 </script>
-
-
-
-
-
-
-
-
-</body>
-</html>

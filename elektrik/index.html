@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data PLN, Genset, Issue, Trafo, LVMDP, dan Cubicle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type='text'], input[type='number'] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>TTC GAYUNGAN CHECKLIST</h1>
+    <p id="date-time"></p>
+<h2>Data PLN</h2>
+<table>
+    <tr>
+        <th>Parameter</th>
+        <th>Nilai</th>
+    </tr>
+    <tr>
+        <td>COSPHI</td>
+        <td><input type="text" id="cophi-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>LWBP</td>
+        <td><input type="text" id="lwbp-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>WBP</td>
+        <td><input type="text" id="wbp-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>TOTAL</td>
+        <td><input type="text" id="total-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>KVARH</td>
+        <td><input type="text" id="kvarh-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>V1/V2/V3</td>
+        <td><input type="text" id="v123-input" value="0/0/0"></td>
+    </tr>
+    <tr>
+        <td>A1/A2/A3</td>
+        <td><input type="text" id="a123-input" value="0/0/0"></td>
+    </tr>
+</table>
+
+<h2>Data Genset</h2>
+<table>
+    <tr>
+        <th>Parameter</th>
+        <th>Nilai</th>
+    </tr>
+    <tr>
+        <td>Solar (Liter)</td>
+        <td><input type="number" id="solar-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>Backup time (Jam)</td>
+        <td><input type="number" id="backup-time-input" value="0"></td>
+    </tr>
+</table>
+
+
+<h2>Data Trafo</h2>
+<table>
+    <tr>
+        <th>No.</th>
+        <th>Device</th>
+        <th>Lev. Oli</th>
+        <th>Temp</th>
+        <th>Kondisi</th>
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>Trafo 1 Lt. 2</td>
+        <td>
+            <select id="oli-trafo1-input">
+                <option value="kurang">Kurang</option>
+                <option value="normal">Normal</option>
+            </select>
+        </td>
+        <td><input type="text" id="temp-trafo1-input" value="0"></td>
+        
+        <td>
+            <select id="kondisi-trafo1-input">
+                <option value="kurang">Kotor</option>
+                <option value="normal">Bersih</option>
+            </select>
+        </td>
+        
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>Trafo 2 Lt. 1</td>
+      
+        <td>
+            <select id="oli-trafo2-input">
+                <option value="kurang">Kurang</option>
+                <option value="normal">Normal</option>
+            </select>
+        </td>
+        <td><input type="text" id="temp-trafo2-input" value="0"></td>
+        
+        <td>
+            <select id="kondisi-trafo2-input">
+                <option value="kotor">Kurang</option>
+                <option value="bersih">Normal</option>
+            </select>
+        </td>
+        </tr>
+</table>
+
+<!-- Data LVMDP -->
+<h2>Data LVMDP</h2>
+<table>
+    <tr>
+        <th>No.</th>
+        <th>Device</th>
+        <th>Daya</th>
+        <th>kVAR</th>
+        <th>kVA</th>
+        <th>Frek</th>
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>LV2 (R3) Lt. 1</td>
+        <td><input type="text" id="daya-lvmdp1-input" value="0"></td>
+        <td><input type="text" id="kvar-lvmdp1-input" value="0"></td>
+        <td><input type="text" id="kva-lvmdp1-input" value="0"></td>
+        <td><input type="text" id="frek-lvmdp1-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>LV2 (R4) Lt. 1</td>
+        <td><input type="text" id="daya-lvmdp2-input" value="0"></td>
+        <td><input type="text" id="kvar-lvmdp2-input" value="0"></td>
+        <td><input type="text" id="kva-lvmdp2-input" value="0"></td>
+        <td><input type="text" id="frek-lvmdp2-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>3.</td>
+        <td>LV1 (R1&R2) Lt. 2</td>
+        <td><input type="text" id="daya-lvmdp3-input" value="0"></td>
+        <td><input type="text" id="kvar-lvmdp3-input" value="0"></td>
+        <td><input type="text" id="kva-lvmdp3-input" value="0"></td>
+        <td><input type="text" id="frek-lvmdp3-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>4.</td>
+        <td>LV1 (R5) Lt. 2</td>
+        <td><input type="text" id="daya-lvmdp4-input" value="0"></td>
+        <td><input type="text" id="kvar-lvmdp4-input" value="0"></td>
+        <td><input type="text" id="kva-lvmdp4-input" value="0"></td>
+        <td><input type="text" id="frek-lvmdp4-input" value="0"></td>
+    </tr>
+    <!-- Tambahkan baris ini untuk setiap data LVMDP yang Anda miliki -->
+</table>
+
+<!--lvmdp rs-->
+
+<table>
+    <tr>
+        <th>No.</th>
+        <th>Device</th>
+        <th>Teg-RS</th>
+        <th>Teg-ST</th>
+        <th>Teg-TR</th>
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>LV2 (R3) Lt. 1</td>
+        <td><input type="text" id="rs-lvmdp1-input" value="0"></td>
+        <td><input type="text" id="st-lvmdp1-input" value="0"></td>
+        <td><input type="text" id="tr-lvmdp1-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>LV2 (R4) Lt. 1</td>
+        <td><input type="text" id="rs-lvmdp2-input" value="0"></td>
+        <td><input type="text" id="st-lvmdp2-input" value="0"></td>
+        <td><input type="text" id="tr-lvmdp2-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>3.</td>
+        <td>LV1 (R1&R2) Lt. 2</td>
+        <td><input type="text" id="rs-lvmdp3-input" value="0"></td>
+        <td><input type="text" id="st-lvmdp3-input" value="0"></td>
+        <td><input type="text" id="tr-lvmdp3-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>4.</td>
+        <td>LV1 (R5) Lt. 2</td>
+        <td><input type="text" id="rs-lvmdp4-input" value="0"></td>
+        <td><input type="text" id="st-lvmdp4-input" value="0"></td>
+        <td><input type="text" id="tr-lvmdp4-input" value="0"></td>
+    </tr>
+</table>
+
+<!--lvmdp rn-->
+<table>
+    <tr>
+        <th>No.</th>
+        <th>Device</th>
+        <th>Teg-RN</th>
+        <th>Teg-SN</th>
+        <th>Teg-TN</th>
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>LV2 (R3) Lt. 1</td>
+        <td><input type="text" id="rn-lvmdp1-input" value="0"></td>
+        <td><input type="text" id="sn-lvmdp1-input" value="0"></td>
+        <td><input type="text" id="tn-lvmdp1-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>LV2 (R4) Lt. 1</td>
+        <td><input type="text" id="rn-lvmdp2-input" value="0"></td>
+        <td><input type="text" id="sn-lvmdp2-input" value="0"></td>
+        <td><input type="text" id="tn-lvmdp2-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>3.</td>
+        <td>LV1 (R1&R2) Lt. 2</td>
+        <td><input type="text" id="rn-lvmdp3-input" value="0"></td>
+        <td><input type="text" id="sn-lvmdp3-input" value="0"></td>
+        <td><input type="text" id="tn-lvmdp3-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>4.</td>
+        <td>LV1 (R5) Lt. 2</td>
+        <td><input type="text" id="rn-lvmdp4-input" value="0"></td>
+        <td><input type="text" id="sn-lvmdp4-input" value="0"></td>
+        <td><input type="text" id="tn-lvmdp4-input" value="0"></td>
+    </tr>
+</table>
+
+<!--lvmdp amp-r-->
+
+<table>
+    <tr>
+        <th>No.</th>
+        <th>Device</th>
+        <th>AMP-R</th>
+        <th>AMP-S</th>
+        <th>AMP-T</th>
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>LV2 (R3) Lt. 1</td>
+        <td><input type="text" id="ampr-lvmdp1-input" value="0"></td>
+        <td><input type="text" id="amps-lvmdp1-input" value="0"></td>
+        <td><input type="text" id="ampt-lvmdp1-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>LV2 (R4) Lt. 1</td>
+        <td><input type="text" id="ampr-lvmdp2-input" value="0"></td>
+        <td><input type="text" id="amps-lvmdp2-input" value="0"></td>
+        <td><input type="text" id="ampt-lvmdp2-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>3.</td>
+        <td>LV1 (R1&R2) Lt. 2</td>
+        <td><input type="text" id="ampr-lvmdp3-input" value="0"></td>
+        <td><input type="text" id="amps-lvmdp3-input" value="0"></td>
+        <td><input type="text" id="ampt-lvmdp3-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>4.</td>
+        <td>LV1 (R5) Lt. 2</td>
+        <td><input type="text" id="ampr-lvmdp4-input" value="0"></td>
+        <td><input type="text" id="amps-lvmdp4-input" value="0"></td>
+        <td><input type="text" id="ampt-lvmdp4-input" value="0"></td>
+    </tr>
+</table>
+
+
+<h2>Data Cubicle</h2>
+<table>
+    <tr>
+        <th>No.</th>
+        <th>Device</th>
+        <th>Out R</th>
+        <th>Out S</th>
+        <th>Out T</th>
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>Cubicle 1 Lt. 1</td>
+        <td><input type="text" id="out-r-cubicle1-input" value="0"></td>
+        <td><input type="text" id="out-s-cubicle1-input" value="0"></td>
+        <td><input type="text" id="out-t-cubicle1-input" value="0"></td>
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>Cubicle 2 Lt. 1</td>
+        <td><input type="text" id="out-r-cubicle2-input" value="0"></td>
+        <td><input type="text" id="out-s-cubicle2-input" value="0"></td>
+        <td><input type="text" id="out-t-cubicle2-input" value="0"></td>
+    </tr>
+    <!-- Tambahkan baris ini untuk setiap data Cubicle yang Anda miliki -->
+    
+</table>
+<button onclick="downloadData()">Download Data</button>
+<script>
+    // Get the current date and time
+    var dateTimeNow = new Date().toLocaleString();
+
+    // Display the current date and time
+    document.getElementById("date-time").innerText = "Tanggal dan Waktu saat ini: " + dateTimeNow;
+</script>
+
+<script>
+
+
+
+    // JavaScript dapat digunakan untuk mengambil nilai-nilai input fields
+    var cophiInput = document.getElementById("cophi-input").value;
+    var lwbpInput = document.getElementById("lwbp-input").value;
+    var wbpInput = document.getElementById("wbp-input").value;
+    var totalInput = document.getElementById("total-input").value;
+    var kvarhInput = document.getElementById("kvarh-input").value;
+    var v123Input = document.getElementById("v123-input").value;
+    var a123Input = document.getElementById("a123-input").value;
+    var solarInput = document.getElementById("solar-input").value;
+    var backupTimeInput = document.getElementById("backup-time-input").value;
+    var tempTrafo1Input = document.getElementById("temp-trafo1-input").value;
+    var tempTrafo2Input = document.getElementById("temp-trafo2-input").value;
+
+    // Contoh penggunaan nilai-nilai input fields
+    console.log("COSPHI:", cophiInput);
+    console.log("LWBP:", lwbpInput);
+    console.log("WBP:", wbpInput);
+    console.log("TOTAL:", totalInput);
+    console.log("KVARH:", kvarhInput);
+    console.log("V1/V2/V3:", v123Input);
+    console.log("A1/A2/A3:", a123Input);
+    console.log("Solar:", solarInput);
+    console.log("Backup time:", backupTimeInput);
+    console.log("Temp Trafo 1:", tempTrafo1Input);
+    console.log("Temp Trafo 2:", tempTrafo2Input);
+
+    // JavaScript dapat digunakan untuk mengambil nilai-nilai input fields
+    var dayaLvmdp1Input = document.getElementById("daya-lvmdp1-input").value;
+    var kvarLvmdp1Input = document.getElementById("kvar-lvmdp1-input").value;
+    var kvaLvmdp1Input = document.getElementById("kva-lvmdp1-input").value;
+    var frekLvmdp1Input = document.getElementById("frek-lvmdp1-input").value;
+    var outRCubicle1Input = document.getElementById("out-r-cubicle1-input").value;
+    var outSCubicle1Input = document.getElementById("out-s-cubicle1-input").value;
+    var outTCubicle1Input = document.getElementById("out-t-cubicle1-input").value;
+
+    // Contoh penggunaan nilai-nilai input fields
+    console.log("Daya LVMDP 1:", dayaLvmdp1Input);
+    console.log("kVAR LVMDP 1:", kvarLvmdp1Input);
+    console.log("kVA LVMDP 1:", kvaLvmdp1Input);
+    console.log("Frek LVMDP 1:", frekLvmdp1Input);
+    console.log("Out R Cubicle 1:", outRCubicle1Input);
+    console.log("Out S Cubicle 1:", outSCubicle1Input);
+    console.log("Out T Cubicle 1:", outTCubicle1Input);
+
+    function autoSave() {
+        // Mengumpulkan nilai-nilai dari input fields PLN
+        var cophiInput = document.getElementById("cophi-input").value;
+        var lwbpInput = document.getElementById("lwbp-input").value;
+        var wbpInput = document.getElementById("wbp-input").value;
+        var totalInput = document.getElementById("total-input").value;
+        var kvarhInput = document.getElementById("kvarh-input").value;
+        var v123Input = document.getElementById("v123-input").value;
+        var a123Input = document.getElementById("a123-input").value;
+
+        // Mengumpulkan nilai-nilai dari input fields Genset
+        var solarInput = document.getElementById("solar-input").value;
+        var backupTimeInput = document.getElementById("backup-time-input").value;
+
+        // Mengumpulkan nilai-nilai dari input fields Trafo
+        var oliTrafo1Input = document.getElementById("oli-trafo1-input").value;
+        var tempTrafo1Input = document.getElementById("temp-trafo1-input").value;
+        var kondisiTrafo1Input = document.getElementById("kondisi-trafo1-input").value;
+
+        var oliTrafo2Input = document.getElementById("oli-trafo2-input").value;
+        var tempTrafo2Input = document.getElementById("temp-trafo2-input").value;
+        var kondisiTrafo2Input = document.getElementById("kondisi-trafo2-input").value;
+
+        // Mengumpulkan nilai-nilai dari input fields LVMDP
+        var dayaLvmdp1Input = document.getElementById("daya-lvmdp1-input").value;
+        var kvarLvmdp1Input = document.getElementById("kvar-lvmdp1-input").value;
+        var kvaLvmdp1Input = document.getElementById("kva-lvmdp1-input").value;
+        var frekLvmdp1Input = document.getElementById("frek-lvmdp1-input").value;
+
+        //lvmdp2
+        var dayaLvmdp2Input = document.getElementById("daya-lvmdp2-input").value;
+        var kvarLvmdp2Input = document.getElementById("kvar-lvmdp2-input").value;
+        var kvaLvmdp2Input = document.getElementById("kva-lvmdp2-input").value;
+        var frekLvmdp2Input = document.getElementById("frek-lvmdp2-input").value;
+
+        //lvmdp3
+        var dayaLvmdp3Input = document.getElementById("daya-lvmdp3-input").value;
+        var kvarLvmdp3Input = document.getElementById("kvar-lvmdp3-input").value;
+        var kvaLvmdp3Input = document.getElementById("kva-lvmdp3-input").value;
+        var frekLvmdp3Input = document.getElementById("frek-lvmdp3-input").value;
+
+        //lvmdp4
+        var dayaLvmdp4Input = document.getElementById("daya-lvmdp4-input").value;
+        var kvarLvmdp4Input = document.getElementById("kvar-lvmdp4-input").value;
+        var kvaLvmdp4Input = document.getElementById("kva-lvmdp4-input").value;
+        var frekLvmdp4Input = document.getElementById("frek-lvmdp4-input").value;
+
+        //lvmdp teg-rs
+        var rsLvmdp1Input = document.getElementById("rs-lvmdp1-input").value;
+        var stLvmdp1Input = document.getElementById("st-lvmdp1-input").value;
+        var trLvmdp1Input = document.getElementById("tr-lvmdp1-input").value;
+        
+        //lvmdp2
+        var rsLvmdp2Input = document.getElementById("rs-lvmdp2-input").value;
+        var stLvmdp2Input = document.getElementById("st-lvmdp2-input").value;
+        var trLvmdp2Input = document.getElementById("tr-lvmdp2-input").value;
+        
+        //lvmdp3
+        var rsLvmdp3Input = document.getElementById("rs-lvmdp3-input").value;
+        var stLvmdp3Input = document.getElementById("st-lvmdp3-input").value;
+        var trLvmdp3Input = document.getElementById("tr-lvmdp3-input").value;
+        
+        //lvmdp4
+        var rsLvmdp4Input = document.getElementById("rs-lvmdp4-input").value;
+        var stLvmdp4Input = document.getElementById("st-lvmdp4-input").value;
+        var trLvmdp4Input = document.getElementById("tr-lvmdp4-input").value;
+        
+         //lvmdp teg-rn
+         var rnLvmdp1Input = document.getElementById("rn-lvmdp1-input").value;
+         var snLvmdp1Input = document.getElementById("sn-lvmdp1-input").value;
+         var tnLvmdp1Input = document.getElementById("tn-lvmdp1-input").value;
+         
+         //lvmdp2
+         var rnLvmdp2Input = document.getElementById("rn-lvmdp2-input").value;
+         var snLvmdp2Input = document.getElementById("sn-lvmdp2-input").value;
+         var tnLvmdp2Input = document.getElementById("tn-lvmdp2-input").value;
+          
+         //lvmdp3
+         var rnLvmdp3Input = document.getElementById("rn-lvmdp3-input").value;
+         var snLvmdp3Input = document.getElementById("sn-lvmdp3-input").value;
+         var tnLvmdp3Input = document.getElementById("tn-lvmdp3-input").value;
+         
+         //lvmdp4
+         var rnLvmdp4Input = document.getElementById("rn-lvmdp4-input").value;
+         var snLvmdp4Input = document.getElementById("sn-lvmdp4-input").value;
+         var tnLvmdp4Input = document.getElementById("tn-lvmdp4-input").value;
+          
+          //lvmdp ampr
+          var amprLvmdp1Input = document.getElementById("ampr-lvmdp1-input").value;
+          var ampsLvmdp1Input = document.getElementById("amps-lvmdp1-input").value;
+          var amptLvmdp1Input = document.getElementById("ampt-lvmdp1-input").value;
+          
+          //lvmdp2
+          var amprLvmdp2Input = document.getElementById("ampr-lvmdp2-input").value;
+          var ampsLvmdp2Input = document.getElementById("amps-lvmdp2-input").value;
+          var amptLvmdp2Input = document.getElementById("ampt-lvmdp2-input").value;
+           
+          //lvmdp3
+          var amprLvmdp3Input = document.getElementById("ampr-lvmdp3-input").value;
+          var ampsLvmdp3Input = document.getElementById("amps-lvmdp3-input").value;
+          var amptLvmdp3Input = document.getElementById("ampt-lvmdp3-input").value;
+           
+          //lvmdp4
+          var amprLvmdp4Input = document.getElementById("ampr-lvmdp4-input").value;
+          var ampsLvmdp4Input = document.getElementById("amps-lvmdp4-input").value;
+          var amptLvmdp4Input = document.getElementById("ampt-lvmdp4-input").value;
+            
+
+        // Mengumpulkan nilai-nilai dari input fields Cubicle
+        var outRCubicle1Input = document.getElementById("out-r-cubicle1-input").value;
+        var outSCubicle1Input = document.getElementById("out-s-cubicle1-input").value;
+        var outTCubicle1Input = document.getElementById("out-t-cubicle1-input").value;
+        var outRCubicle2Input = document.getElementById("out-r-cubicle2-input").value;
+        var outSCubicle2Input = document.getElementById("out-s-cubicle2-input").value;
+        var outTCubicle2Input = document.getElementById("out-t-cubicle2-input").value;
+
+
+
+
+        // Menggabungkan data menjadi satu string
+        var data = "Data PLN:\n" +
+            "COSPHI: " + cophiInput + "\n" +
+            "LWBP: " + lwbpInput + "\n" +
+            "WBP: " + wbpInput + "\n" +
+            "TOTAL: " + totalInput + "\n" +
+            "KVARH: " + kvarhInput + "\n" +
+            "V1/V2/V3: " + v123Input + "\n" +
+            "A1/A2/A3: " + a123Input + "\n\n" +
+
+            "Data Genset:\n" +
+            "Solar (Liter): " + solarInput + "\n" +
+            "Backup time (Jam): " + backupTimeInput + "\n\n" +
+
+            "Data Trafo:\n" +
+            "Trafo 1 Lt. 2 - Lev. Oli: " + oliTrafo1Input + ", Temp: " + tempTrafo1Input + ", Kondisi: " + kondisiTrafo1Input + "\n" +
+            "Trafo 2 Lt. 1 - Lev. Oli: " + oliTrafo2Input + ", Temp: " + tempTrafo2Input + ", Kondisi: " + kondisiTrafo2Input + "\n\n" +
+
+            "Data LVMDP:\n" +
+            "LV2 (R3) Lt. 1 - Daya: " + dayaLvmdp1Input + ", kVAR: " + kvarLvmdp1Input + ", kVA: " + kvaLvmdp1Input + ", Frek: " + frekLvmdp1Input + "\n\n" +
+            "LV2 (R4) Lt. 1 - Daya: " + dayaLvmdp2Input + ", kVAR: " + kvarLvmdp2Input + ", kVA: " + kvaLvmdp2Input + ", Frek: " + frekLvmdp2Input + "\n\n" +
+
+
+            "Data Cubicle:\n" +
+            "Cubicle 1 Lt. 1 - Out R: " + outRCubicle1Input + ", Out S: " + outSCubicle1Input + ", Out T: " + outTCubicle1Input + "\n" +
+            "Cubicle 2 Lt. 1 - Out R: " + outRCubicle2Input + ", Out S: " + outSCubicle2Input + ", Out T: " + outTCubicle2Input + "\n";
+
+        // Simpan data ke dalam localStorage
+        localStorage.setItem("autosavedData", data);
+    }
+
+    // Memanggil fungsi autoSave setiap kali ada perubahan pada input fields
+    document.querySelectorAll("input[type='text'], input[type='number']").forEach(function(input) {
+        input.addEventListener("input", autoSave);
+    });
+
+    // Fungsi untuk menginisialisasi data yang telah disimpan pada localStorage (jika ada)
+    function initializeAutosavedData() {
+        var autosavedData = localStorage.getItem("autosavedData");
+        if (autosavedData) {
+            alert("Data yang disimpan sebelumnya ditemukan. Data akan diinisialisasi.");
+            // Memasukkan data ke dalam input fields
+            document.getElementById("saved-data").innerHTML = autosavedData;
+        }
+    }
+
+    // Memanggil fungsi initializeAutosavedData saat halaman dimuat
+    window.addEventListener("load", initializeAutosavedData);
+
+    function downloadData() {
+        // Mengumpulkan nilai-nilai dari input fields
+        var cophiInput = document.getElementById("cophi-input").value;
+        var solarInput = document.getElementById("solar-input").value;
+        var tempTrafo1Input = document.getElementById("temp-trafo1-input").value;
+        // Mengumpulkan nilai-nilai dari input fields untuk LVMDP dan Cubicle (jika ada)
+        var cophiInput = document.getElementById("cophi-input").value;
+        var lwbpInput = document.getElementById("lwbp-input").value;
+        var wbpInput = document.getElementById("wbp-input").value;
+        var totalInput = document.getElementById("total-input").value;
+        var kvarhInput = document.getElementById("kvarh-input").value;
+        var v123Input = document.getElementById("v123-input").value;
+        var a123Input = document.getElementById("a123-input").value;
+
+        // Mengumpulkan nilai-nilai dari input fields Genset
+        var solarInput = document.getElementById("solar-input").value;
+        var backupTimeInput = document.getElementById("backup-time-input").value;
+
+        // Mengumpulkan nilai-nilai dari input fields Trafo
+        var oliTrafo1Input = document.getElementById("oli-trafo1-input").value;
+        var tempTrafo1Input = document.getElementById("temp-trafo1-input").value;
+        var kondisiTrafo1Input = document.getElementById("kondisi-trafo1-input").value;
+
+        var oliTrafo2Input = document.getElementById("oli-trafo2-input").value;
+        var tempTrafo2Input = document.getElementById("temp-trafo2-input").value;
+        var kondisiTrafo2Input = document.getElementById("kondisi-trafo2-input").value;
+
+        // Mengumpulkan nilai-nilai dari input fields LVMDP
+        var dayaLvmdp1Input = document.getElementById("daya-lvmdp1-input").value;
+        var kvarLvmdp1Input = document.getElementById("kvar-lvmdp1-input").value;
+        var kvaLvmdp1Input = document.getElementById("kva-lvmdp1-input").value;
+        var frekLvmdp1Input = document.getElementById("frek-lvmdp1-input").value;
+
+         //lvmdp2
+         var dayaLvmdp2Input = document.getElementById("daya-lvmdp2-input").value;
+         var kvarLvmdp2Input = document.getElementById("kvar-lvmdp2-input").value;
+         var kvaLvmdp2Input = document.getElementById("kva-lvmdp2-input").value;
+         var frekLvmdp2Input = document.getElementById("frek-lvmdp2-input").value;
+ 
+         //lvmdp3
+         var dayaLvmdp3Input = document.getElementById("daya-lvmdp3-input").value;
+         var kvarLvmdp3Input = document.getElementById("kvar-lvmdp3-input").value;
+         var kvaLvmdp3Input = document.getElementById("kva-lvmdp3-input").value;
+         var frekLvmdp3Input = document.getElementById("frek-lvmdp3-input").value;
+ 
+         //lvmdp4
+         var dayaLvmdp4Input = document.getElementById("daya-lvmdp4-input").value;
+         var kvarLvmdp4Input = document.getElementById("kvar-lvmdp4-input").value;
+         var kvaLvmdp4Input = document.getElementById("kva-lvmdp4-input").value;
+         var frekLvmdp4Input = document.getElementById("frek-lvmdp4-input").value;
+
+
+           //lvmdp teg-rs
+        var rsLvmdp1Input = document.getElementById("rs-lvmdp1-input").value;
+        var stLvmdp1Input = document.getElementById("st-lvmdp1-input").value;
+        var trLvmdp1Input = document.getElementById("tr-lvmdp1-input").value;
+        
+        //lvmdp2
+        var rsLvmdp2Input = document.getElementById("rs-lvmdp2-input").value;
+        var stLvmdp2Input = document.getElementById("st-lvmdp2-input").value;
+        var trLvmdp2Input = document.getElementById("tr-lvmdp2-input").value;
+        
+        //lvmdp3
+        var rsLvmdp3Input = document.getElementById("rs-lvmdp3-input").value;
+        var stLvmdp3Input = document.getElementById("st-lvmdp3-input").value;
+        var trLvmdp3Input = document.getElementById("tr-lvmdp3-input").value;
+        
+        //lvmdp4
+        var rsLvmdp4Input = document.getElementById("rs-lvmdp4-input").value;
+        var stLvmdp4Input = document.getElementById("st-lvmdp4-input").value;
+        var trLvmdp4Input = document.getElementById("tr-lvmdp4-input").value;
+        
+         //lvmdp teg-rn
+         var rnLvmdp1Input = document.getElementById("rn-lvmdp1-input").value;
+         var snLvmdp1Input = document.getElementById("sn-lvmdp1-input").value;
+         var tnLvmdp1Input = document.getElementById("tn-lvmdp1-input").value;
+         
+         //lvmdp2
+         var rnLvmdp2Input = document.getElementById("rn-lvmdp2-input").value;
+         var snLvmdp2Input = document.getElementById("sn-lvmdp2-input").value;
+         var tnLvmdp2Input = document.getElementById("tn-lvmdp2-input").value;
+          
+         //lvmdp3
+         var rnLvmdp3Input = document.getElementById("rn-lvmdp3-input").value;
+         var snLvmdp3Input = document.getElementById("sn-lvmdp3-input").value;
+         var tnLvmdp3Input = document.getElementById("tn-lvmdp3-input").value;
+         
+         //lvmdp4
+         var rnLvmdp4Input = document.getElementById("rn-lvmdp4-input").value;
+         var snLvmdp4Input = document.getElementById("sn-lvmdp4-input").value;
+         var tnLvmdp4Input = document.getElementById("tn-lvmdp4-input").value;
+          
+          //lvmdp ampr
+          var amprLvmdp1Input = document.getElementById("ampr-lvmdp1-input").value;
+          var ampsLvmdp1Input = document.getElementById("amps-lvmdp1-input").value;
+          var amptLvmdp1Input = document.getElementById("ampt-lvmdp1-input").value;
+          
+          //lvmdp2
+          var amprLvmdp2Input = document.getElementById("ampr-lvmdp2-input").value;
+          var ampsLvmdp2Input = document.getElementById("amps-lvmdp2-input").value;
+          var amptLvmdp2Input = document.getElementById("ampt-lvmdp2-input").value;
+           
+          //lvmdp3
+          var amprLvmdp3Input = document.getElementById("ampr-lvmdp3-input").value;
+          var ampsLvmdp3Input = document.getElementById("amps-lvmdp3-input").value;
+          var amptLvmdp3Input = document.getElementById("ampt-lvmdp3-input").value;
+           
+          //lvmdp4
+          var amprLvmdp4Input = document.getElementById("ampr-lvmdp4-input").value;
+          var ampsLvmdp4Input = document.getElementById("amps-lvmdp4-input").value;
+          var amptLvmdp4Input = document.getElementById("ampt-lvmdp4-input").value;
+
+
+        // Mengumpulkan nilai-nilai dari input fields Cubicle
+        var outRCubicle1Input = document.getElementById("out-r-cubicle1-input").value;
+        var outSCubicle1Input = document.getElementById("out-s-cubicle1-input").value;
+        var outTCubicle1Input = document.getElementById("out-t-cubicle1-input").value;
+        
+        var outRCubicle2Input = document.getElementById("out-r-cubicle2-input").value;
+        var outSCubicle2Input = document.getElementById("out-s-cubicle2-input").value;
+        var outTCubicle2Input = document.getElementById("out-t-cubicle2-input").value;
+        
+
+        // Menggabungkan data menjadi satu string
+        var data = "Checklist Electrical TTC Gayungan :"+"\n"+ "Tanggal :" +dateTimeNow+"\n"+ "Data PLN:\n" +
+            "COSPHI: " + cophiInput + "\n" +
+            "LWBP: " + lwbpInput + "\n" +
+            "WBP: " + wbpInput + "\n" +
+            "TOTAL: " + totalInput + "\n" +
+            "KVARH: " + kvarhInput + "\n" +
+            "V1/V2/V3: " + v123Input + "\n" +
+            "A1/A2/A3: " + a123Input + "\n\n" +
+            // Tambahkan parameter PLN lainnya di sini
+
+            "\nData Genset:\n" +
+            "Solar (Liter): " + solarInput + "\n" +
+            "Backup time (Jam): " + backupTimeInput + "\n\n" +
+            // Tambahkan parameter Genset lainnya di sini
+
+            "Data Trafo:\n" +
+            "Trafo 1 Lt. 2 - Lev. Oli: " + oliTrafo1Input + ", Temp: " + tempTrafo1Input + ", Kondisi: " + kondisiTrafo1Input + "\n" +
+            "Trafo 2 Lt. 1 - Lev. Oli: " + oliTrafo2Input + ", Temp: " + tempTrafo2Input + ", Kondisi: " + kondisiTrafo2Input + "\n\n" +
+
+            "Data LVMDP:\n" +
+            "LV2 (R3) Lt. 1 - Daya: " + dayaLvmdp1Input + ", kVAR: " + kvarLvmdp1Input + ", kVA: " + kvaLvmdp1Input + ", Frek: " + frekLvmdp1Input + "\n" +
+            "LV2 (R4) Lt. 1 - Daya: " + dayaLvmdp2Input + ", kVAR: " + kvarLvmdp2Input + ", kVA: " + kvaLvmdp2Input + ", Frek: " + frekLvmdp2Input + "\n" +
+            "LV1 (R1&R2) Lt. 2 - Daya: " + dayaLvmdp3Input + ", kVAR: " + kvarLvmdp3Input + ", kVA: " + kvaLvmdp3Input + ", Frek: " + frekLvmdp3Input + "\n" +
+            "LV1 (R5) Lt. 2 - Daya: " + dayaLvmdp4Input + ", kVAR: " + kvarLvmdp4Input + ", kVA: " + kvaLvmdp4Input + ", Frek: " + frekLvmdp4Input + "\n\n" +
+
+            "LV2 (R3) Lt. 1 - Teg-RS : " + rsLvmdp1Input + ", Teg-ST : " + stLvmdp1Input + ", Teg-TR: " + trLvmdp1Input + "\n" +
+            "LV2 (R4) Lt. 1 - Teg-RS : " + rsLvmdp2Input + ", Teg-ST : " + stLvmdp2Input + ", Teg-TR: " + trLvmdp2Input + "\n" +
+            "LV1 (R1&R2) Lt. 2 - Teg-RS : " + rsLvmdp3Input + ", Teg-ST : " + stLvmdp3Input + ", Teg-TR: " + trLvmdp3Input + "\n" +
+            "LV1 (R5) Lt. 2 - Teg-RS : " + rsLvmdp4Input + ", Teg-ST : " + stLvmdp4Input + ", Teg-TR: " + trLvmdp4Input + "\n\n" +
+
+            "LV2 (R3) Lt. 1 - Teg-RN : " + rnLvmdp1Input + ", Teg-SN : " + snLvmdp1Input + ", Teg-TN: " + tnLvmdp1Input + "\n" +
+            "LV2 (R4) Lt. 1 - Teg-RN : " + rnLvmdp2Input + ", Teg-SN : " + snLvmdp2Input + ", Teg-TN: " + tnLvmdp2Input + "\n" +
+            "LV1 (R1&R2) Lt. 2 - Teg-RN : " + rnLvmdp3Input + ", Teg-SN : " + snLvmdp3Input + ", Teg-TN: " + tnLvmdp4Input + "\n" +
+            "LV1 (R5) Lt. 2 - Teg-RN : " + rnLvmdp4Input + ", Teg-SN : " + snLvmdp4Input + ", Teg-TN: " + tnLvmdp4Input + "\n\n" +
+
+            "LV2 (R3) Lt. 1 - AMP-R : " + amprLvmdp1Input + ", AMP-S : " + ampsLvmdp1Input + ", AMP-T: " + amptLvmdp1Input + "\n" +
+            "LV2 (R4) Lt. 1 - AMP-R : " + amprLvmdp2Input + ", AMP-S : " + ampsLvmdp2Input + ", AMP-T: " + amptLvmdp2Input + "\n" +
+            "LV1 (R1&R2) Lt. 2 - AMP-R : " + amprLvmdp3Input + ", AMP-S : " + ampsLvmdp3Input + ", AMP-T: " + amptLvmdp4Input + "\n" +
+            "LV1 (R5) Lt. 2 - AMP-R : " + amprLvmdp4Input + ", AMP-S : " + ampsLvmdp4Input + ", AMP-T: " + amptLvmdp4Input + "\n\n" +
+
+
+
+            "Data Cubicle:\n" +
+            "Cubicle 1 Lt. 1 - Out R: " + outRCubicle1Input + ", Out S: " + outSCubicle1Input + ", Out T: " + outTCubicle1Input + "\n"+
+            "Cubicle 2 Lt. 1 - Out R: " + outRCubicle2Input + ", Out S: " + outSCubicle2Input + ", Out T: " + outTCubicle2Input + "\n";
+
+            
+            // Tambahkan data Trafo lainnya di sini
+
+        // Simpan data ke dalam file .txt
+        var filename = "data.txt";
+        var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, filename);
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+</body>
+</html>
